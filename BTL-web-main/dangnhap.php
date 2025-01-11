@@ -1,3 +1,48 @@
+
+<?php
+include "../Connect/connection.php";
+
+$error_message = ""; //thong bao loi
+
+if (isset($_POST['nutdangnhap'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password']; 
+
+    // Tim email
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
+
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+
+        // kiemtra mk nhu java
+        if (password_verify($password, $row['password'])) { 
+            header("Location:doingu.php"); // di den trang doi ngu
+            exit;
+        } else {
+            $error_message = "Sai mật khẩu!";
+        }
+    } else {
+        $error_message = "Sai tài khoản hoặc mật khẩu!";
+    }
+}
+?>
+<?php
+if (isset($_POST['nutdangky'])) {
+
+    $username = mysqli_real_escape_string($conn, $_POST['username']);
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = password_hash($_POST['password'], PASSWORD_BCRYPT);
+
+    $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$password')";
+    if (mysqli_query($conn, $sql)) {
+        $success_message = "Đăng ký thành công! Bạn có thể đăng nhập ngay bây giờ.";
+    } else {
+        $error_message = "Đã xảy ra lỗi khi đăng ký. Vui lòng thử lại.";
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -112,12 +157,12 @@
     <div class="body">
     <div class="container" id="container">
         <div class="form-container register-container">
-        <form action="#">
+        <form action="dangnhap.php" method="POST">
             <h1>Đăng kí </h1>
-            <input type="text" placeholder="Name">
-            <input type="email" placeholder="Email">
-            <input type="password" placeholder="Password">
-            <button>Đăng kí</button>
+            <input type="text" name="username" placeholder="Name">
+            <input type="email" name="email" placeholder="Email">
+            <input type="password" name="password" placeholder="Password">
+            <button name="nutdangky">Đăng kí</button>
             <span>Hoặc sử dụng tài khoản của bạn</span>
             <div class="social-container"> 
                 <a href="" class="social"><svg class="register" xmlns="http://www.w3.org/2000/svg" height="25" width="25" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#005eff" d="M512 256C512 114.6 397.4 0 256 0S0 114.6 0 256C0 376 82.7 476.8 194.2 504.5V334.2H141.4V256h52.8V222.3c0-87.1 39.4-127.5 125-127.5c16.2 0 44.2 3.2 55.7 6.4V172c-6-.6-16.5-1-29.6-1c-42 0-58.2 15.9-58.2 57.2V256h83.6l-14.4 78.2H287V510.1C413.8 494.8 512 386.9 512 256h0z"/></svg></a>       
@@ -126,40 +171,19 @@
         </form>
     </div>
 
-    <?php
-include "../Connect/connection.php";
 
-$error_message = ""; // Biến lưu thông báo lỗi
 
-if (isset($_POST['nutdangnhap'])) {
-    $email = mysqli_real_escape_string($conn, $_POST['email']);
-    $password = $_POST['password']; // Không mã hóa để dùng password_verify()
 
-    // Truy vấn thông tin người dùng
-    $sql = "SELECT * FROM users WHERE email = '$email'";
-    $result = mysqli_query($conn, $sql);
-
-    if ($result && mysqli_num_rows($result) == 1) {
-        $row = mysqli_fetch_assoc($result);
-
-        // Kiểm tra mật khẩu
-        if (password_verify($password, $row['password'])) {
-            header("Location: doingu.html"); // Chuyển hướng khi thành công
-            exit;
-        } else {
-            $error_message = "Sai mật khẩu!";
-        }
-    } else {
-        $error_message = "Sai tài khoản hoặc mật khẩu!";
-    }
-}
-?>
 
 
 
     <div class="form-container login-container">
         <form action="dangnhap.php" method="POST">
             <h1>Đăng nhập </h1>
+                    <?php if (!empty($error_message)) : ?>
+            <p style="color: red; font-weight: bold;"><?php echo $error_message; ?></p>
+        <?php endif; ?>
+
             <input type="email" name="email" placeholder="Email">
             <input type="password" name="password" placeholder="Password">
             <div class="content">
@@ -202,7 +226,7 @@ if (isset($_POST['nutdangnhap'])) {
 </div>
 </div>
 <script src="js/header.js"></script>
-
+<script src="js/dangnhap.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
