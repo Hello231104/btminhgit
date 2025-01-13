@@ -1,68 +1,60 @@
-
 <?php
 include "../Connect/connection.php";
 
 $error_message = ""; // Thông báo lỗi
 $success_message = ""; // Thông báo thành công
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] == 'some1') {
-    if (isset($_POST['nutdangnhap'])) {
-        $email = mysqli_real_escape_string($conn, $_POST['email'] ?? '');  
-        $password = $_POST['password'] ?? '';
+// Xử lý đăng nhập
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangnhap'])) {
+    $email = mysqli_real_escape_string($conn, $_POST['email']);
+    $password = $_POST['password'];
 
-        // Tìm email
-        $sql = "SELECT * FROM users WHERE email = '$email'";
-        $result = mysqli_query($conn, $sql);
+    $sql = "SELECT * FROM users WHERE email = '$email'";
+    $result = mysqli_query($conn, $sql);
 
-        if ($result && mysqli_num_rows($result) == 1) {
-            $row = mysqli_fetch_assoc($result);
-
-            // Kiểm tra mật khẩu
-            if (password_verify($password, $row['password'])) { 
-                header("Location: doingu.php"); // Đi đến trang đội ngũ
-                exit;
-            } else {
-                $error_message = "Sai mật khẩu!";
-            }
+    if ($result && mysqli_num_rows($result) == 1) {
+        $row = mysqli_fetch_assoc($result);
+        if (password_verify($password, $row['password'])) { 
+            // Chuyển hướng sau khi đăng nhập thành công
+            header("Location: header.php"); // Chuyển hướng đến trang đội ngũ (home page)
+            exit;
         } else {
-            $error_message = "Sai tài khoản hoặc mật khẩu!";
+            $error_message = "Sai mật khẩu!";
         }
+    } else {
+        $error_message = "Sai tài khoản hoặc mật khẩu!";
     }
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_GET['action']) && $_GET['action'] == 'some2') {
-    if (isset($_POST['nutdangky'])) {
-        $username = $_POST['username'] ?? '';
-        $email = $_POST['email'] ?? '';
-        $password = $_POST['password'] ?? '';
+// Xử lý đăng ký
+if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangky'])) {
+    $username = $_POST['username'] ?? '';
+    $email = $_POST['email'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-        if (!empty($username) && !empty($email) && !empty($password)) {
-            $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+    if (!empty($username) && !empty($email) && !empty($password)) {
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
-            // Kiểm tra email và username có trùng lặp không
-            $sql_check = "SELECT * FROM users WHERE email = '$email' or username = '$username'";
-            $result_check = mysqli_query($conn, $sql_check);
+        // Kiểm tra email và username có trùng lặp không
+        $sql_check = "SELECT * FROM users WHERE email = '$email' or username = '$username'";
+        $result_check = mysqli_query($conn, $sql_check);
 
-            if (mysqli_num_rows($result_check) > 0) {
-                $error_message = "Email hoặc username đã được sử dụng!";
-            } else {
-                $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
-                if (mysqli_query($conn, $sql)) {
-                    $success_message = "Đăng ký thành công! Bạn có thể đăng nhập.";
-                    // Redirect sau khi đăng ký thành công
-                    header("Location: dangnhap.php");  // Chuyển hướng đến trang đăng nhập
-                    exit;  // Dừng script để không có phần mã tiếp theo được thực thi
-                } else {
-                    $error_message = "Lỗi khi đăng ký. Vui lòng thử lại!";
-                }
-            }
+        if (mysqli_num_rows($result_check) > 0) {
+            $error_message = "Email hoặc username đã được sử dụng!";
         } else {
-            $error_message = "Vui lòng nhập đầy đủ thông tin!";
+            // Chèn thông tin đăng ký vào cơ sở dữ liệu
+            $sql = "INSERT INTO users (username, email, password) VALUES ('$username', '$email', '$hashed_password')";
+            if (mysqli_query($conn, $sql)) {
+                $success_message = "Đăng ký thành công! Bạn có thể đăng nhập.";
+            } else {
+                $error_message = "Lỗi khi đăng ký. Vui lòng thử lại!";
+            }
         }
+    } else {
+        $error_message = "Vui lòng nhập đầy đủ thông tin!";
     }
 }
 ?>
-
 
     <!DOCTYPE html>
     <html lang="en">
