@@ -1,3 +1,4 @@
+
 <?php
 include "../Connect/connection.php";
 
@@ -15,9 +16,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangnhap'])) {
     if ($result && mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password'])) { 
+            session_start();
+            $_SESSION['username'] = $username; 
             // Chuyển hướng sau khi đăng nhập thành công
             header("Location: header.php"); // Chuyển hướng đến trang đội ngũ (home page)
-            exit;
+            exit();
         } else {
             $error_message = "Sai mật khẩu!";
         }
