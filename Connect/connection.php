@@ -1,15 +1,14 @@
 <?php
-$servername = "localhost";
-$username = "root"; // Thay bằng username MySQL
-$password = "";     // Thay bằng mật khẩu MySQL
-$dbname = "vtqmysqli"; // Thay bằng tên database của bạn
+$db_host = 'localhost';
+$db_user = 'root'; // Đây là username của MySQL (mặc định trong XAMPP)
+$db_pass = ''; // Mật khẩu MySQL
+$db_name = 'vtqmysqli';
 
 // Tạo kết nối
-$conn = mysqli_connect($servername, $username, $password, $dbname);
+$conn = new mysqli($db_host, $db_user, $db_pass, $db_name);
 
 // Kiểm tra kết nối
-if (!$conn) {
-    echo("Kết nối thất bại: " . mysqli_connect_error());
+if ($conn->connect_error) {
+    die("Kết nối thất bại: " . $conn->connect_error);
 }
-
 ?>

@@ -17,7 +17,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangnhap'])) {
         $row = mysqli_fetch_assoc($result);
         if (password_verify($password, $row['password'])) { 
             session_start();
-            $_SESSION['username'] = $username; 
+            $_SESSION['usernamesql'] = $row['username']; 
             // Chuyển hướng sau khi đăng nhập thành công
             header("Location: header.php"); // Chuyển hướng đến trang đội ngũ (home page)
             exit();
