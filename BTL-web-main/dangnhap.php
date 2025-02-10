@@ -15,11 +15,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangnhap'])) {
 
     if ($result && mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_assoc($result);
-        if (password_verify($password, $row['password'])) { 
+        if (password_verify($password, $row['passWord'])) { 
             session_start();
-            $_SESSION['usernamesql'] = $row['username']; 
+            $_SESSION['usernamesql'] = $row['userName']; 
             // Chuyển hướng sau khi đăng nhập thành công
-            header("Location: header.php"); // Chuyển hướng đến trang đội ngũ (home page)
+            header("Location: index.php"); // Chuyển hướng đến trang đội ngũ (home page)
             exit();
         } else {
             $error_message = "Sai mật khẩu!";

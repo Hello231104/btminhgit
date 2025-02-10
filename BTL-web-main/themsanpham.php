@@ -1,5 +1,5 @@
 <?php
-include "connection.php";
+include "../Connect/connection.php";
  if(isset($_POST['btnthem'])){
     $tensp = $_POST['tensp'];
 
@@ -9,7 +9,7 @@ include "connection.php";
     $giasp = $_POST['giasp'];
 
 
-    $sql =""
+    $sql ="INSERT INTO ";
  }
 ?>
 
