@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-        function loadHTML(elementId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading the file:', error));
-        }
-
-        loadHTML('bodytrang', 'body.html');
-        loadHTML('footertrang','footer.html')
-        loadHTML('headertrang', 'header.php');
-    </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sản phẩm</title>
@@ -30,8 +16,7 @@
 </head>
 <body>
     <!-- HEADER -->
-    <header>
-        <div id="headertrang"></div>       
+    <header>     
         </header>
            <!-- Tìm kiếm -->
            <script>

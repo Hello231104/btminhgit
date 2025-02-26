@@ -1,16 +1,19 @@
 <!doctype html>
 <html>
 <head>
-    <script>
-        function loadHTML(elementId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading the file:', error));
-        }
+       <script>
+    document.addEventListener("DOMContentLoaded", function () {
         loadHTML('headertrang', 'header.php');
+    });
+
+    function loadHTML(elementId, filePath) {
+        fetch(filePath)
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById(elementId).innerHTML = data;
+            })
+            .catch(error => console.error('Error loading the file:', error));
+    }
 
     </script>
     <meta charset="UTF-8">
@@ -35,7 +38,6 @@
 
 <body>
     <header>
-        <div id="headertrang"></div>        
         </header>
            <!-- Tìm kiếm -->
            <script>
@@ -191,12 +193,34 @@
     <div class="bg-gray-100 p-8 rounded-lg max-w-xl w-full text-center shadow-none">
         <h2 class="text-2xl font-bold mb-6">Đăng Ký nhận thông tin khuyến mãi</h2>
         <form id="emailForm" class="flex space-x-2">
-            <input type="email" id="email" placeholder="Nhập email của bạn" required class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
+            <input type="email" id="email" name="email" placeholder="Nhập email của bạn" required class="flex-grow p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400">
             <button type="submit" class="p-3 bg-green-500 text-white rounded-lg hover:bg-green-600">Đăng Ký</button>
         </form>
         <p class="text-green-600 mt-4 hidden" id="successMessage">Bạn đã đăng ký thành công!</p>
+        <p class="text-red-600 mt-4 hidden" id="errorMessage">Có lỗi xảy ra khi gửi email!</p>
     </div>
 </section>
+<script>
+document.getElementById('emailForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Ngăn chặn hành vi mặc định của form
+
+    var email = document.getElementById('email').value;
+
+    var xhr = new XMLHttpRequest();
+    xhr.open('POST', 'guimail.php', true);
+    xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            if (xhr.responseText === 'success') {
+                document.getElementById('successMessage').classList.remove('hidden');
+            } else {
+                alert('Có lỗi xảy ra khi gửi email: ' + xhr.responseText);
+            }
+        }
+    };
+    xhr.send('email=' + encodeURIComponent(email));
+});
+</script>
 <!-- FOOTER -->
 <footer>
     <div class="footer-container">
@@ -276,3 +300,4 @@
   <script src="../src/cart.js"></script>
 </body>
 </html>
+

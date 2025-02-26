@@ -17,7 +17,7 @@ session_start();
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Pattaya&display=swap" rel="stylesheet">
    </head>
-<body>
+
     <header>        
         <div id="header">
             <div class="top-bar">
@@ -62,7 +62,7 @@ if (isset($_SESSION['usernamesql']) && $_SESSION['usernamesql']) {
 
                         </li>
                         <li id="cart"><svg xmlns="http://www.w3.org/2000/svg" height="14" width="14" viewBox="0 0 576 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#303030" d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"/></svg>
-                        <a href="giohang.php" class="contact">Giỏ hàng</a>
+                        <a href="#" onclick="loadPage('giohang')" class="contact">Giỏ hàng</a>
                         </li>
                     </ul>
                 </div>       
@@ -77,19 +77,19 @@ if (isset($_SESSION['usernamesql']) && $_SESSION['usernamesql']) {
                         
                     
                         <ul id="main-menu">
-                            <li><a href="index.php">Trang Chủ</a></li>
-                            <li><a href="gioithieu.php">Giới thiệu</a></li>
-                            <li><a href="hoidap.php">Hỏi - Đáp</a></li>
-                            <li><a href="sanpham.php">Sản Phẩm</a>
+                            <li><a href="#" onclick="loadPage('index')">Trang Chủ</a></li>
+                            <li><a href="#" onclick="loadPage('gioithieu')">Giới thiệu</a></li>
+                            <li><a href="#" onclick="loadPage('hoidap')">Hỏi - Đáp</a></li>
+                            <li><a href="#" onclick="loadPage('sanpham')">Sản Phẩm</a>
                                 <ul class="sp-menu" style="z-index: 999;">
                                     <li><a href="banhsinhnhat.html">Bánh sinh nhật</a></li>
                                     <li><a href="banhsinhnhat.html">Bánh nửa Entremet</a></li>
                                     <li><a href="banhsinhnhat.html">Phụ kiện bánh</a></li>
                                 </ul>
                             </li>
-                            <li><a href="tintuc.php">Tin Tức</a></li>
-                            <li><a href="doingu.php">Đội Ngũ</a></li>
-                            <li><a href="lienhe.php">Liên Hệ</a></li>
+                            <li><a href="#" onclick="loadPage('tintuc')">Tin Tức</a></li>
+                            <li><a href="#" onclick="loadPage('doingu')">Đội Ngũ</a></li>
+                            <li><a href="#" onclick="loadPage('lienhe')">Liên Hệ</a></li>
                         </ul>
         
                         <label for="nav-mobile-input" class="navbar-button">
@@ -100,15 +100,26 @@ if (isset($_SESSION['usernamesql']) && $_SESSION['usernamesql']) {
                             <label for="nav-mobile-input" class="nav-close__mobile">                       
                                 <svg xmlns="http://www.w3.org/2000/svg" height="15" width="15" viewBox="0 0 384 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path fill="#7dc642" d="M376.6 84.5c11.3-13.6 9.5-33.8-4.1-45.1s-33.8-9.5-45.1 4.1L192 206 56.6 43.5C45.3 29.9 25.1 28.1 11.5 39.4S-3.9 70.9 7.4 84.5L150.3 256 7.4 427.5c-11.3 13.6-9.5 33.8 4.1 45.1s33.8 9.5 45.1-4.1L192 306 327.4 468.5c11.3 13.6 31.5 15.4 45.1 4.1s15.4-31.5 4.1-45.1L233.7 256 376.6 84.5z"/></svg>
                             </label><br> <br> <br>
-                            <li><a href="index.php" class="nav-mobile">TRANG CHỦ</a></li>
-                            <li><a href="gioithieu.php" class="nav-mobile">GIỚI THIỆU</a></li>
-                            <li><a href="hoidap.php" class="nav-mobile">HỎI - ĐÁP</a></li>
-                            <li><a href="sanpham.php" class="nav-mobile">SẢN PHẨM</a></li>
-                            <li><a href="tintuc.php" class="nav-mobile">TIN TỨC</a></li>
-                            <li><a href="doingu.php" class="nav-mobile">ĐỘI NGŨ</a></li>
-                            <li><a href="lienhe.php" class="nav-mobile">LIÊN HỆ</a></li>
-                            <li><a href="dangnhap.php" class="nav-mobile">ĐĂNG NHẬP</a></li>
-                            <li><a href="giohang.php" class="nav-mobile">GIỎ HÀNG CỦA BẠN</a></li>
+                            <li><a onclick="loadPage('index')" class="nav-mobile">TRANG CHỦ</a></li>
+                            <li><a href="#" onclick="loadPage('gioithieu')" class="nav-mobile">GIỚI THIỆU</a></li>
+                            <li><a href="#" onclick="loadPage('hoidap')" class="nav-mobile">HỎI - ĐÁP</a></li>
+                            <li><a href="#" onclick="loadPage('sanpham')" class="nav-mobile">SẢN PHẨM</a></li>
+                            <li><a href="#" onclick="loadPage('tintuc')">TIN TỨC</a></li>
+                            <li><a href="#" onclick="loadPage('doingu')">ĐỘI NGŨ</a></li>
+                            <li><a href="#" onclick="loadPage('lienhe')">LIÊN HỆ</a></li>
+                            <li><a href="dangnhap.php" class="nav-mobile"> <?php
+
+
+if (isset($_SESSION['usernamesql']) && $_SESSION['usernamesql']) {
+    // Dùng giá trị trong session
+    $userDisplayName = htmlspecialchars($_SESSION['usernamesql']);
+    echo '<a href="profile.php" class="contact">' . $userDisplayName . '</a>';
+    echo '<a href="dangxuat.php">  Đăng XUẤT</a>';
+} else {
+    echo '<a href="dangnhap.php" class="contact">ĐĂNG NHẬP</a>';
+}
+?></a></li>
+                            <li><a href="#" onclick="loadPage('giohang')">GIỎ HÀNG CỦA BẠN</a></li>
                         </ul>  
                 </div>
             </div> 
@@ -131,5 +142,25 @@ if (isset($_SESSION['usernamesql']) && $_SESSION['usernamesql']) {
             }
         });
     
-        </script>
-</body>    
+        </script>  
+
+        <body>
+        <div id="content">
+        <?php include("./index.php"); ?>
+    </div>
+
+    <script>
+        function loadPage(page) {
+            $.ajax({
+                url: page + ".php",
+                type: "GET",
+                success: function(response) {
+                    $("#content").html(response);
+                },
+                error: function() {
+                    $("#content").html("<h2>Không tìm thấy trang!</h2>");
+                }
+            });
+        }
+    </script>
+        </body>

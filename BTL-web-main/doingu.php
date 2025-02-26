@@ -1,21 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<script>
-function loadHTML(elementId, filePath) {
-            fetch(filePath)
-                .then(response => response.text())
-                .then(data => {
-                    document.getElementById(elementId).innerHTML = data;
-                })
-                .catch(error => console.error('Error loading the file:', error));
-        }
-
-        loadHTML('bodytrang', 'body.html');
-        loadHTML('footertrang','footer.html')
-        loadHTML('headertrang', 'header.php');
-
-</script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" href="./images/logo_cake_1-removebg-preview.png" type = "image/x-icon"> <!--FAVICON-->
@@ -41,7 +26,6 @@ function loadHTML(elementId, filePath) {
 <body>
       <!-- ------------------------------- HEADER -------------------------------- -->
       <header>        
-        <div id="headertrang"></div>
         </header>
            <!-- Tìm kiếm -->
            <script>

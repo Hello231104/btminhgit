@@ -18,8 +18,7 @@
     <title>VTQ Bakery - TRANG CHỦ</title>
 </head>
 <body>   
-<header>
-    <div id="headertrang"></div>        
+<header>      
     </header>
        <!-- Tìm kiếm -->
        <script>

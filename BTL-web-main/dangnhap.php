@@ -19,7 +19,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['nutdangnhap'])) {
             session_start();
             $_SESSION['usernamesql'] = $row['userName']; 
             // Chuyển hướng sau khi đăng nhập thành công
-            header("Location: index.php"); // Chuyển hướng đến trang đội ngũ (home page)
+            header("Location: header.php"); // Chuyển hướng đến trang đội ngũ (home page)
             exit();
         } else {
             $error_message = "Sai mật khẩu!";
